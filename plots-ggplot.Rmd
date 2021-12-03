@@ -5,6 +5,86 @@ date: "03/12/2021"
 output: html_document
 ---
 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 # Plots with ggplot2
 
 We are going to make plots in R and it's going to be amazing.
+
+# Load packages
+```{r}
+library(tidyverse)
+library(readxl)
+library(here)
+```
+
+# Load files
+```{r}
+ca_np <- read_csv(here("data", "ca_np.csv"))
+```
+
+# Look at the data
+```{r}
+names(ca_np)
+head(ca_np)
+summary(ca_np)
+```
+
+```{r}
+ci_np <- read_excel(here("data", "ci_np.xlsx"))
+```
+
+```{r}
+names(ci_np)
+head(ci_np)
+summary(ci_np)
+```
+
+To create a bare-bones ggplot graph, we need to tell R three basic things:
+
+1. We’re using ggplot2::ggplot()
+2. Data we’re using & variables we’re plotting (i.e., what is x and/or y?)
+3. What type of graph we’re making (the type of geom)
+
+```{r}
+ggplot(data = ci_np, aes(x = year, y = visitors)) +
+  geom_line()
+```
+
+We’re going to be doing a lot of plot variations with those same variables. Let’s store the first line as object gg_base so that we don’t need to retype it each time:
+
+```{r}
+gg_base <- ggplot(data = ci_np, aes(x = year, y = visitors))
+```
+
+Change to a scatterplot
+```{r}
+gg_base + geom_point()
+```
+
+Change to a column graph
+```{r}
+gg_base + geom_col()
+```
+
+Change to an area plot
+```{r}
+gg_base + geom_area()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
