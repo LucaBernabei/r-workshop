@@ -138,7 +138,57 @@ gg_base +
 ```
 
 
+Use `labs()` to update axis labels, and add a title and/or subtitle to your ggplot graph.
+```{r}
+gg_base +
+  geom_line(linetype = "dotted") +
+  theme_minimal() +
+  labs(
+    x = "Year",
+    y = "Annual park visitors",
+    title = "Channel Islands NP Visitation",
+    subtitle = "(1963 - 2016)"
+  )
+```
 
+
+As long as the geoms are compatible, we can layer them on top of one another to further customize a graph.
+
+For example, adding points to a line graph:
+
+```{r}
+gg_base +
+  geom_line(color = "purple") +
+  geom_point(color = "orange",
+             aes(size = year),
+             alpha = 0.5)
+```
+
+Often we’ll want to visualize multiple series. For example, from the ca_np object we have stored, we might want to plot visitation for all California National Parks.
+
+To do that, we need to add an aesthetic that lets `ggplot` know how things are going to be grouped. A demonstration of why that’s important - what happens if we don’t let ggplot know how to group things?
+
+```{r}
+ggplot(data = ca_np, aes(x = year, y = visitors)) +
+  geom_line()
+```
+
+Well that’s definitely a mess, and it’s because ggplot has no idea that these should be different series based on the different parks that appear in the ‘park_name’ column.
+
+We can make sure R does know by adding an *explicit grouping argument `(group =)`, or by updating an aesthetic based on park_name:*
+
+```{r}
+ggplot(data = ca_np, aes(x = year, y = visitors, group = park_name)) +
+  geom_line()
+```
+
+*Note:* You could also add an aesthetic (`color = park_nam`e) in the `geom_line()` layer to create groupings, instead of in the topmost `ggplot()` layer.
+
+Let’s store that topmost line so that we can use it more quickly later on in the lesson:
+
+```{r}
+gg_np <- ggplot(data = ca_np, aes(x = year, y = visitors, group = park_name))
+```
 
 
 
