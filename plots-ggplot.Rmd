@@ -190,6 +190,37 @@ Let’s store that topmost line so that we can use it more quickly later on in t
 gg_np <- ggplot(data = ca_np, aes(x = year, y = visitors, group = park_name))
 ```
 
+Faceting graphs
+
+When we facet graphs, we split them up into multiple plotting panels, where each panel contains a subset of the data. In our case, we’ll split the graph above into different panels, each containing visitation data for a single park.
+
+Also notice that *any general theme changes made will be applied to all of the graphs*.
+
+```{r}
+gg_np +
+  geom_line(show.legend = FALSE) +
+  theme_light() + 
+  labs(x = "year", y = "annual visitors") +
+  facet_wrap(~ park_name)
+```
+
+Exporting a ggplot graph with `ggsave()`
+
+If we want our graph to appear in a knitted html, then we don’t need to do anything else. But often we’ll need a saved image file, of specific size and resolution, to share or for publication.
+
+`ggsave()` will export the most recently run ggplot graph by default (`plot = last_plot()`), unless you give it the name of a different saved ggplot object. Some common arguments for `ggsave()`:
+
+* `width =`: set exported image width (default inches)
+* `height =`: set exported image height (default height)
+* `dpi =`: set dpi (dots per inch)
+So to export the faceted graph above at 180 dpi, width a width of 8" and a height of 7", we can use:
+
+```{r}
+ggsave(here("figures", "np_graph.jpg"), dpi = 180, width = 8, height = 7)
+```
+
+
+
 
 
 
