@@ -1,0 +1,32 @@
+---
+title: "pivot_lobsters"
+author: "Luca"
+date: "04/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+## attach libraries
+library(tidyverse)
+library(readxl)
+library(here)
+library(skimr) # install.packages('skimr')
+install.packages('kableExtra')
+library(kableExtra) # install.packages('kableExtra')
+```
+
+load the data
+the `skip = 4` tells R to ignore the first four rows of the spreadsheet
+```{r}
+lobsters <- read_xlsx(here("data/lobsters.xlsx"), skip=4)
+```
+
+
+
+
+
+
